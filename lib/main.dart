@@ -7,6 +7,9 @@ void main() {
   runApp(const MyApp());
 }
 
+// StatelessWidget
+// 상태를 가지지 않는 위젯 클래스
+// 내부의 UI 위젯들은 상태를 가질 수 없음 -> widget build()는 처음 위젯을 그릴 때만 호출됨
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
