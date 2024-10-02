@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Detail extends StatefulWidget {
-  const Detail({super.key});
+  final Color _nowShowingTitleColor;
+  const Detail({Key? key, required Color nowColor}) : _nowShowingTitleColor = nowColor, super(key: key);
 
   static const detailRouteName = "/detail";
 
@@ -13,7 +14,7 @@ class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Detail Widget"),),
+      appBar: AppBar(title: Text("Detail Widget"), backgroundColor: this.widget._nowShowingTitleColor,),
       body: Text("Welcome to Detail Widget"),
     );
   }

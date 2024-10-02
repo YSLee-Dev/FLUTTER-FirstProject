@@ -85,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   // Navigator.push, pushNamed 등이 있으며, pushNamed는
                   // 최상위 위젯에서 정의해 놓은 routes를 기반으로 Key 값 (String)에 맞는
                   // Route에 맞춰 이동함
-                  Navigator.pushNamed(context, Detail.detailRouteName);
+                  Navigator.pushNamed(context, Detail.detailRouteName, arguments: _nowTitleBGColor);
                 },
                 child: Text("버튼을 누르면 다음 페이지로 이동할 수 있어요.", style: TextStyle(color: Colors.white),)
             )

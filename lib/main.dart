@@ -24,7 +24,11 @@ class MyApp extends StatelessWidget {
   // Route에는 화면에 표시될 widget과 화면전환 애니메이션등을 정의함
   final routes = {
     MyHomePage.homeRouteName: (context) => MyHomePage(),
-    Detail.detailRouteName: (context) => Detail()
+    Detail.detailRouteName: (context) {
+      // context에 있는 값을 꺼내서 전달
+      final argument = ModalRoute.of(context)?.settings.arguments;
+      return Detail(nowColor: argument is Color ? argument : Colors.red);
+    }
   };
 
   // 구현한 UI 위젯을 화면에 출력하게 해주는 메서드
