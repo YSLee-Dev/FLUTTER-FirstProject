@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:flutter_firstproject/Detail/Detail.dart';
+
 // Stateful Widget
 // 화면구성이 상태 변화에 따라 변경되어야 할 때 사용되는 상태가 있는 위젯 클래스
 // Class 내부에 있는 프로퍼티가 위젯 내부에서 사용될 경우 State라고 칭하며, setState{}를 통해
@@ -13,6 +15,8 @@ class MyHomePage extends StatefulWidget {
   // Key는 해당 위젯을 식별하는 고유 식별자 역할을 함
   // 위젯 트리에서 위치가 변경되어도 Key 값은 그대로이기 때문에 상태를 기억해야할 때 사용함
   const MyHomePage({super.key});
+
+  static const homeRouteName = "/home";
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -70,6 +74,20 @@ class _MyHomePageState extends State<MyHomePage> {
                    });
                 },
                 child: Text("버튼을 눌러서 타이틀을 변경할 수 있어요.", style: TextStyle(color: Colors.white),)
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueGrey
+                ),
+                onPressed: () {
+                  // Flutter에서는 Navigator를 이용해 화면 전환을 할 수 있음
+                  // Navigator.push, pushNamed 등이 있으며, pushNamed는
+                  // 최상위 위젯에서 정의해 놓은 routes를 기반으로 Key 값 (String)에 맞는
+                  // Route에 맞춰 이동함
+                  Navigator.pushNamed(context, Detail.detailRouteName);
+                },
+                child: Text("버튼을 누르면 다음 페이지로 이동할 수 있어요.", style: TextStyle(color: Colors.white),)
             )
           ],
         )

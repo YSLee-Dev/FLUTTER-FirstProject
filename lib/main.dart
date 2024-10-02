@@ -1,17 +1,31 @@
 import 'package:flutter/material.dart';
+import 'Detail/Detail.dart';
 import 'Home/Home.dart';
 
 // 앱의 시작부분 (Swift = @Main)
 // 앱을 실행하면 Main()을 찾아 실행하게 됨
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 // StatelessWidget
 // 상태를 가지지 않는 위젯 클래스
 // 내부의 UI 위젯들은 상태를 가질 수 없음 -> widget build()는 처음 위젯을 그릴 때만 호출됨
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  // Routes는 Navigator에서 pushNamed 메소드를 이용할 때 사용됨
+  // - 최상위 widget에 routes에 미리 정의해야함
+  // - 미리 정의해놓은 Routes를 통해 편리하게 화면전환을 할 수 있음
+
+  // Route는 Navigator에서 화면을 이동할 때 사용되는 객체
+  // Navigator는 Stack을 통해 화면을 관리하는데, widget을 바로 표시하고, 숨기는 것이 아닌, 화면에 대한 정보를 담는 route를 통해
+  // 화면 전환을 함 (Navigator Stack에 추가/제거되는 객체가 Route)
+  // Route에는 화면에 표시될 widget과 화면전환 애니메이션등을 정의함
+  final routes = {
+    MyHomePage.homeRouteName: (context) => MyHomePage(),
+    Detail.detailRouteName: (context) => Detail()
+  };
 
   // 구현한 UI 위젯을 화면에 출력하게 해주는 메서드
   // BuildContext 타입은 현재 위젯의 위젯 트리상의 정보를 담고 있음
@@ -28,6 +42,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: const MyHomePage(),
+      routes: routes,
     );
   }
 }
