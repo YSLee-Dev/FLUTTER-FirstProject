@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:flutter_firstproject/Detail/Detail.dart';
+import 'package:flutter_firstproject/Layout/LayoutPlayground.dart';
 
 // Stateful Widget
 // 화면구성이 상태 변화에 따라 변경되어야 할 때 사용되는 상태가 있는 위젯 클래스
@@ -91,6 +92,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
                 child: Text("버튼을 눌러서 타이틀 컬러를 볼 수 있어요.", style: TextStyle(color: Colors.white),)
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent
+                ),
+                onPressed: () {
+                 Navigator.pushNamed(context, LayoutPlayground.layoutPlaygroundRouteName);
+                },
+                child: Text("버튼을 눌러서 다양한 레이아웃을 볼 수 있어요.", style: TextStyle(color: Colors.white),)
             )
           ],
         )

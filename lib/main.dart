@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_firstproject/Layout/LayoutPlayground.dart';
 import 'Detail/Detail.dart';
 import 'Home/Home.dart';
 
@@ -28,7 +29,8 @@ class MyApp extends StatelessWidget {
       // context에 있는 값을 꺼내서 전달
       final argument = ModalRoute.of(context)?.settings.arguments;
       return Detail(nowColor: argument is Color ? argument : Colors.red);
-    }
+    },
+    LayoutPlayground.layoutPlaygroundRouteName: (context) => LayoutPlayground()
   };
 
   // 구현한 UI 위젯을 화면에 출력하게 해주는 메서드
