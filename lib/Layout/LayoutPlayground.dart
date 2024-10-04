@@ -82,6 +82,40 @@ class LayoutPlayground extends StatelessWidget {
               opacity: 0.5,
               child: Text("나는 Opacity안에 있는 텍스트 Text 입니다.", style: TextStyle(color: Colors.white),),
             ),
+          ),
+
+          // AspectRatio는 자식 위젯을 특정한 비율로 만드는 위젯
+          // 가로, 세로를 비율을 유지하며 레이아웃을 잡게 됨
+
+          // BlueGrey Container는 width는 300, height는 100으로 설정된 상태이지만, alignment가 center로 설정되어 있기 때문에 부모 사이즈를 강제하지 않음
+          // 따라서 AspectRatio는 maxWidth와 maxHeight만 BlueGrey Container의 사이즈를 따라가게 됨 (print 참고)
+          // AspectRatio는 자식 RedAccent Container에게 BlueGrey Container에서 전달한 height 값은 그대로 전달하되, width 값은 AspectRatio 비율이 적용된 값을 전달함
+          // (여기서 전달되는 값은 비율이 적용된 값이기 때문에 min, max 모두 고정된 상태로 전달됨)
+          // redAccent Container는 이미 부모에게 사이즈를 강제 당했기 떄문에 해당 사이즈를 채택 후 부모에게 전달하게 됨
+          Container(
+            color: Colors.blueGrey,
+            width: 300,
+            height: 100,
+            alignment: Alignment.center,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                print("--------------");
+                print("BlueGrey Container로 부터 전달받은 min 제약조건 : " + "width: ${constraints.minWidth} " + "height: ${constraints.minHeight}");
+                print("BlueGrey Container로 부터 전달받은 max 제약조건 : " + "width: ${constraints.maxWidth} " + "height: ${constraints.maxHeight}");
+                 return AspectRatio(
+                   aspectRatio: 16/9,
+                   child: LayoutBuilder(
+                     builder: (context, constraints) {
+                       print("ApectRatio 부터 전달받은 min 제약조건 : " + "width: ${constraints.minWidth} " + "height: ${constraints.minHeight}");
+                       print("ApectRatio 부터 전달받은 max 제약조건 : " + "width: ${constraints.maxWidth} " + "height: ${constraints.maxHeight}");
+                       return  Container(
+                         color: Colors.redAccent,
+                       );
+                     }
+                   )
+                 );
+              }
+            )
           )
         ],
       ),
