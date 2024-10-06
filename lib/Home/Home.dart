@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: Colors.white)),
             ),
             SizedBox(height: 50),
-            CommonWidgeButton(
+            CommonWidgetButton(
                 bgColor: Colors.green,
                 title: "버튼을 눌러서 타이틀을 변경할 수 있어요.",
                 tappedAction: () {
@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 }),
             SizedBox(height: 30),
-            CommonWidgeButton(
+            CommonWidgetButton(
                 bgColor: Colors.blueGrey,
                 title: "버튼을 눌러서 타이틀 컬러를 볼 수 있어요.",
                 tappedAction: () async {
@@ -95,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 }
             ),
             SizedBox(height: 30),
-            CommonWidgeButton(
+            CommonWidgetButton(
               bgColor: Colors.redAccent,
               title: "버튼을 눌러서 다양한 레이아웃을 볼 수 있어요.",
               tappedAction: () {
