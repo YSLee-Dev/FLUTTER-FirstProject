@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class HomeWidgetButton extends StatelessWidget {
+class CommonWidgeButton extends StatelessWidget {
   final String _btnTitle;
   final Color _btnBGColor;
   Function() _tappedAction;
 
-  HomeWidgetButton({required Color bgColor, required String title, required Function() tappedAction, Key? key})
+  CommonWidgeButton({required Color bgColor, required String title, required Function() tappedAction, Key? key})
       : _btnBGColor = bgColor, _btnTitle = title, _tappedAction = tappedAction, super(key: key);
 
   @override
