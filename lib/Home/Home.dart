@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter_firstproject/Detail/Detail.dart';
 import 'package:flutter_firstproject/Layout/LayoutPlayground.dart';
+import 'package:flutter_firstproject/Component/HomeWidgetButton.dart';
 
 // Stateful Widget
 // 화면구성이 상태 변화에 따라 변경되어야 할 때 사용되는 상태가 있는 위젯 클래스
@@ -44,7 +45,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     // 디자인 적인 뼈대를 구성하는 위젯 (Scaffold)
     // View를 템플릿처럼 생성하는 것
     // AppBar, Body 등 다양한 속성이 존재함
@@ -57,54 +57,54 @@ class _MyHomePageState extends State<MyHomePage> {
               color: _nowTitleBGColor,
               width: double.infinity,
               padding: EdgeInsets.all(20),
-              child: Text("안녕 Flutter는 처음이지?", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+              child: Text("안녕 Flutter는 처음이지?",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white)),
             ),
             SizedBox(height: 50),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                  backgroundColor: Colors.green
-                ),
-                onPressed: () {
+            HomeWidgetButton(
+                bgColor: Colors.green,
+                title: "버튼을 눌러서 타이틀을 변경할 수 있어요.",
+                tappedAction: () {
                   setState(() {
-                   Color nowRandomColor = _getRandomColor();
+                    Color nowRandomColor = _getRandomColor();
                     while (nowRandomColor == _nowTitleBGColor) {
                       nowRandomColor = _getRandomColor();
                     }
-                   _nowTitleBGColor = nowRandomColor;
-                   });
-                },
-                child: Text("버튼을 눌러서 타이틀을 변경할 수 있어요.", style: TextStyle(color: Colors.white),)
-            ),
+                    _nowTitleBGColor = nowRandomColor;
+                  });
+                }),
             SizedBox(height: 30),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueGrey
-                ),
-                onPressed: () async {
+            HomeWidgetButton(
+                bgColor: Colors.blueGrey,
+                title: "버튼을 눌러서 타이틀 컬러를 볼 수 있어요.",
+                tappedAction: () async {
                   // Flutter에서는 Navigator를 이용해 화면 전환을 할 수 있음
                   // Navigator.push, pushNamed 등이 있으며, pushNamed는
                   // 최상위 위젯에서 정의해 놓은 routes를 기반으로 Key 값 (String)에 맞는
                   // Route에 맞춰 이동함
-                  final colorTapped = await Navigator.pushNamed(context, Detail.detailRouteName, arguments: _nowTitleBGColor);
+                  final colorTapped = await Navigator.pushNamed(
+                      context, Detail.detailRouteName,
+                      arguments: _nowTitleBGColor);
                   setState(() {
-                    _nowTitleBGColor = colorTapped is Color ? colorTapped : _nowTitleBGColor;
+                    _nowTitleBGColor =
+                    colorTapped is Color ? colorTapped : _nowTitleBGColor;
                   });
-                },
-                child: Text("버튼을 눌러서 타이틀 컬러를 볼 수 있어요.", style: TextStyle(color: Colors.white),)
+                }
             ),
             SizedBox(height: 30),
-            ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent
-                ),
-                onPressed: () {
-                 Navigator.pushNamed(context, LayoutPlayground.layoutPlaygroundRouteName);
-                },
-                child: Text("버튼을 눌러서 다양한 레이아웃을 볼 수 있어요.", style: TextStyle(color: Colors.white),)
+            HomeWidgetButton(
+              bgColor: Colors.redAccent,
+              title: "버튼을 눌러서 다양한 레이아웃을 볼 수 있어요.",
+              tappedAction: () {
+                Navigator.pushNamed(
+                    context, LayoutPlayground.layoutPlaygroundRouteName
+                );
+              },
             )
           ],
-        )
-    );
+        ));
   }
 }
