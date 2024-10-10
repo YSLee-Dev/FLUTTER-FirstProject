@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter_firstproject/Detail/Detail.dart';
 import 'package:flutter_firstproject/Layout/LayoutPlayground.dart';
 import 'package:flutter_firstproject/Component/CommonWidgetButton.dart';
+import 'package:flutter_firstproject/Count/Count.dart';
 
 // Stateful Widget
 // 화면구성이 상태 변화에 따라 변경되어야 할 때 사용되는 상태가 있는 위젯 클래스
@@ -102,6 +103,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 Navigator.pushNamed(
                     context, LayoutPlayground.layoutPlaygroundRouteName
                 );
+              },
+            ),
+            SizedBox(height: 30),
+            CommonWidgetButton(
+              bgColor: Colors.amber,
+              title: "버튼을 눌러서 provider를 체험할 수 있어요.",
+              tappedAction: () {
+                Navigator.pushNamed(context, Count.countRouteName);
               },
             )
           ],

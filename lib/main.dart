@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firstproject/Layout/LayoutPlayground.dart';
+import 'Count/Count.dart';
 import 'Detail/Detail.dart';
 import 'Home/Home.dart';
 
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
       final argument = ModalRoute.of(context)?.settings.arguments;
       return Detail(nowColor: argument is Color ? argument : Colors.red);
     },
-    LayoutPlayground.layoutPlaygroundRouteName: (context) => LayoutPlayground()
+    LayoutPlayground.layoutPlaygroundRouteName: (context) => LayoutPlayground(),
+    Count.countRouteName: (context) => Count()
   };
 
   // 구현한 UI 위젯을 화면에 출력하게 해주는 메서드
