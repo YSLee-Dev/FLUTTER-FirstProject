@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_firstproject/Layout/LayoutPlayground.dart';
+import 'package:flutter_firstproject/Provider/CountProvider.dart';
+import 'package:provider/provider.dart';
 import 'Count/Count.dart';
 import 'Detail/Detail.dart';
 import 'Home/Home.dart';
@@ -16,6 +18,9 @@ void main() {
 class MyApp extends StatelessWidget {
   MyApp({super.key});
 
+  // provider 객체는 하나만 생성 후 다른 Widget에서도 동일한 객체를 주입하여 사용함
+  final _countProvider = CountProvider();
+
   // Routes는 Navigator에서 pushNamed 메소드를 이용할 때 사용됨
   // - 최상위 widget에 routes에 미리 정의해야함
   // - 미리 정의해놓은 Routes를 통해 편리하게 화면전환을 할 수 있음
@@ -24,15 +29,18 @@ class MyApp extends StatelessWidget {
   // Navigator는 Stack을 통해 화면을 관리하는데, widget을 바로 표시하고, 숨기는 것이 아닌, 화면에 대한 정보를 담는 route를 통해
   // 화면 전환을 함 (Navigator Stack에 추가/제거되는 객체가 Route)
   // Route에는 화면에 표시될 widget과 화면전환 애니메이션등을 정의함
-  final routes = {
+  late final routes = {
     MyHomePage.homeRouteName: (context) => MyHomePage(),
     Detail.detailRouteName: (context) {
       // context에 있는 값을 꺼내서 전달
       final argument = ModalRoute.of(context)?.settings.arguments;
       return Detail(nowColor: argument is Color ? argument : Colors.red);
     },
-    LayoutPlayground.layoutPlaygroundRouteName: (context) => LayoutPlayground(),
-    Count.countRouteName: (context) => Count()
+    // route 정의 시 ChangeNotifierProvider를 사용하여 provider를 주입함
+    Count.countRouteName: (context) => ChangeNotifierProvider(
+      create: (context) => _countProvider,
+      child:  Count(),
+    )
   };
 
   // 구현한 UI 위젯을 화면에 출력하게 해주는 메서드
@@ -49,7 +57,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(),
+      home: ChangeNotifierProvider(
+        create: (context) => _countProvider,
+        child:  MyHomePage(),
+      ),
       routes: routes,
     );
   }
