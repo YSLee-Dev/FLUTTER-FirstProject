@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
   // Route에는 화면에 표시될 widget과 화면전환 애니메이션등을 정의함
   late final routes = {
     MyHomePage.homeRouteName: (context) => MyHomePage(),
+    LayoutPlayground.layoutPlaygroundRouteName: (context) => LayoutPlayground(),
     Detail.detailRouteName: (context) {
       // context에 있는 값을 꺼내서 전달
       final argument = ModalRoute.of(context)?.settings.arguments;
