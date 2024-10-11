@@ -30,16 +30,21 @@ class MyApp extends StatelessWidget {
   // 화면 전환을 함 (Navigator Stack에 추가/제거되는 객체가 Route)
   // Route에는 화면에 표시될 widget과 화면전환 애니메이션등을 정의함
   late final routes = {
-    MyHomePage.homeRouteName: (context) => MyHomePage(),
+    MyHomePage.homeRouteName: (context) => ChangeNotifierProvider.value(
+      value:  _countProvider,
+      child: MyHomePage()
+    ),
     LayoutPlayground.layoutPlaygroundRouteName: (context) => LayoutPlayground(),
     Detail.detailRouteName: (context) {
       // context에 있는 값을 꺼내서 전달
       final argument = ModalRoute.of(context)?.settings.arguments;
       return Detail(nowColor: argument is Color ? argument : Colors.red);
     },
-    // route 정의 시 ChangeNotifierProvider를 사용하여 provider를 주입함
-    Count.countRouteName: (context) => ChangeNotifierProvider(
-      create: (context) => _countProvider,
+    // route 정의 시 ChangeNotifierProvider, ChangeNotifierProvider.value를 사용하여 provider를 주입함
+    // ChangeNotifierProvider는 상태객체를 처음 생성할 때 사용하며 widget이 dispose 될 때 provider도 같이 disepose 됨
+    // ChangeNotifierProvider.value는 이미 생성된 provider 객체를 재사용 할 때 사용하며, widget이 dispose 되더라도 dispose 되지 않음
+    Count.countRouteName: (context) => ChangeNotifierProvider.value(
+      value: _countProvider,
       child:  Count(),
     )
   };
@@ -58,8 +63,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ChangeNotifierProvider(
-        create: (context) => _countProvider,
+      home: ChangeNotifierProvider.value(
+       value: _countProvider,
         child:  MyHomePage(),
       ),
       routes: routes,
