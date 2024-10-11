@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'Count/Count.dart';
 import 'Detail/Detail.dart';
 import 'Home/Home.dart';
+import 'package:flutter_firstproject/Product/Product.dart';
 
 // 앱의 시작부분 (Swift = @Main)
 // 앱을 실행하면 Main()을 찾아 실행하게 됨
@@ -46,7 +47,8 @@ class MyApp extends StatelessWidget {
     Count.countRouteName: (context) => ChangeNotifierProvider.value(
       value: _countProvider,
       child:  Count(),
-    )
+    ),
+    Product.productRouteName: (context) => Product()
   };
 
   // 구현한 UI 위젯을 화면에 출력하게 해주는 메서드

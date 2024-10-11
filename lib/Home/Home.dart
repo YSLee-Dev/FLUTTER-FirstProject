@@ -5,6 +5,7 @@ import 'package:flutter_firstproject/Detail/Detail.dart';
 import 'package:flutter_firstproject/Layout/LayoutPlayground.dart';
 import 'package:flutter_firstproject/Component/CommonWidgetButton.dart';
 import 'package:flutter_firstproject/Count/Count.dart';
+import 'package:flutter_firstproject/Product/Product.dart';
 import 'package:flutter_firstproject/Provider/CountProvider.dart';
 import 'package:provider/provider.dart';
 
@@ -118,7 +119,17 @@ class _MyHomePageState extends State<MyHomePage> {
                   },
                 );
               }
-            )
+            ),
+            SizedBox(height: 30),
+            CommonWidgetButton(
+              bgColor: Colors.brown,
+              title: "버튼을 누르면 상품을 볼 수 있어요.",
+              tappedAction: () {
+                Navigator.pushNamed(
+                    context, Product.productRouteName
+                );
+              },
+            ),
           ],
         ));
   }
