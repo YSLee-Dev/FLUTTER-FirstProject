@@ -6,42 +6,93 @@ import 'package:http/http.dart' as http;
 
 class Product extends StatefulWidget {
   const Product({super.key});
+
   static const productRouteName = "/Product";
 
   @override
   State<Product> createState() => _ProductState();
 
   Future<List<ProductModel>> requestProductList() async {
-   final uri = Uri.https('dummyjson.com', 'products', {
-     'limit' : '10'
-   });
-   final response = await http.get(uri);
+    final uri = Uri.https('dummyjson.com', 'products', {'limit': '10'});
+    final response = await http.get(uri);
 
-   if (response.statusCode == 200) {
-     Map<String, dynamic> mapData = jsonDecode(response.body);
-     List<ProductModel> model = (mapData['products'] as List).map((v) {
-       return ProductModel.fromJson(v);
-     }).toList();
+    if (response.statusCode == 200) {
+      Map<String, dynamic> mapData = jsonDecode(response.body);
+      List<ProductModel> model = (mapData['products'] as List).map((v) {
+        return ProductModel.fromJson(v);
+      }).toList();
 
-     return model;
-   } else {
-     print("Error ${response.statusCode}");
-     return [];
-   }
+      return model;
+    } else {
+      print("Error ${response.statusCode}");
+      return [];
+    }
   }
 }
 
 class _ProductState extends State<Product> {
+  List<ProductModel> _productList = [];
+
+  @override
+  void initState() {
+    super.initState();
+
+    widget.requestProductList().then((value) {
+      setState(() {
+        _productList = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Product"),),
-      body:
-      ElevatedButton(
-          onPressed: () async {
-            print(await widget.requestProductList());
-          },
-          child: Text("123")),
-    );
+        appBar: AppBar(
+          title: Text("Product"),
+        ),
+        body: Column(
+          children: [
+            if (!_productList.isEmpty)
+              Expanded(
+                  child: ListView.builder(
+                      padding: EdgeInsets.all(20),
+                      itemCount: _productList.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                            width: double.infinity,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _productList[index].title,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
+                                ),
+                                Text(_productList[index].description),
+                                SizedBox(
+                                  height: 10,
+                                )
+                              ],
+                            ));
+                      })),
+            if (_productList.isEmpty)
+              Center(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 20,
+                    ),
+                    SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: CircularProgressIndicator(),
+                    )
+                  ],
+                ),
+              )
+          ],
+        ));
   }
 }
